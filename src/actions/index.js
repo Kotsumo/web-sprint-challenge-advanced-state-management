@@ -8,16 +8,18 @@ import axios from 'axios';
 export const FETCH_SMURF_START = "FETCH_SMURFS_START";
 export const FETCH_SMURF_SUCCESS = "FETCH_SMURFS_SUCCESS";
 export const FETCH_SMURF_FAILURE = "FETCH_SMURFS_FAILURE";
+export const SMURF_POST_SUCCESS = "SMURF_POST_SUCCESS";
+
 export const fetchData = () => {
     return (dispatch) => {
         dispatch({type: FETCH_SMURF_START})
         axios
-        .get()
+        .get('http://localhost:3333/smurfs')
         .then((res) => {
-            console.log(res)
+            dispatch({type: FETCH_SMURF_SUCCESS, payload: res.data})
         })
         .catch((err) => {
-            console.log(err)
+            dispatch({type: FETCH_SMURF_FAILURE, payload: err})
         })
     };
 };
